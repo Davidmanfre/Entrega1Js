@@ -1,36 +1,29 @@
-let precioA = 500;
-let precioB = 1000;
-let precioC = 1500;
+const productos = [
+    { nombre: "Producto 1", precio: 100 },
+    { nombre: "Producto 2", precio: 200 },
+    { nombre: "Producto 3", precio: 300 }
+];
 
+let carrito = [];
 let precioTotal = 0;
-let producto
-let cantidad = 0;
-let seguirComprando = true;
 
+while (true) {
+    const nombreProducto = prompt("Ingrese el nombre del producto (o escribe 'salir' para terminar):");
 
-do {
-    producto = prompt("Bienvenido a nuestra tienda online!\nEscribe con la siguiente letra el producto que quieres comprar:\nA: Shampoo\nB: Acondicionador\nC: Ambos").toUpperCase();
-    cantidad = parseInt(prompt("Escribe la cantidad de productos que quieres comprar:"));
-
-    while(isNaN(cantidad) || cantidad < 0) {
-        alert("La cantidad debe ser un numero positivo!");
-        cantidad = parseInt(prompt("Escribe la cantidad de productos que quieres comprar:"));}
-    switch (producto) {
-        case "A":
-        precioTotal += precioA * cantidad;
-        break;
-        case "B":
-            precioTotal += precioB * cantidad;
-            break;
-        case "C":
-            precioTotal += precioC * cantidad;
-            break;
-        default:
-            alert("El producto no existe");
-            break;
+    if (nombreProducto.toLowerCase() === "salir") {
+    break;
     }
-seguirComprando = confirm("Quieres seguir comprando?");
 
-}while(seguirComprando); //
+    const productoEncontrado = productos.find(producto => producto.nombre === nombreProducto);
 
-alert("El precio total de tu compra es: $ " + precioTotal );
+    if (productoEncontrado) {
+    carrito.push(productoEncontrado);
+    precioTotal += productoEncontrado.precio;
+    console.log(`${nombreProducto} agregado al carrito`);
+    } else {
+    console.log(`No se encontró el producto ${nombreProducto}`);
+    }
+}
+
+console.log("Carrito:", carrito);
+console.log("Precio total:", precioTotal);
